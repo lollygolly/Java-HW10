@@ -65,35 +65,6 @@ public class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    public void shouldSetStationNumberBeforeLastBorder() { // 7. ЗНАЧЕНИЕ ДО ПОСЛЕДНЕЙ ГРАНИЦЫ
-        Radio rad = new Radio();
-        rad.setStationNumber(8);
-
-        int expected = 8;
-        int actual = rad.getStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldSetStationNumberOnLastBorder() { // 8. ЗНАЧЕНИЕ НА ПОСЛЕДНЕЙ ГРАНИЦЕ
-        Radio rad = new Radio();
-        rad.setStationNumber(9);
-
-        int expected = 9;
-        int actual = rad.getStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldNotSetStationNumberAfterLastBorder() { // 9. ЗНАЧЕНИЕ ПОСЛЕ ПОСЛЕДНЕЙ ГРАНИЦЫ
-        Radio rad = new Radio();
-        rad.setStationNumber(10);
-
-        int expected = 0;
-        int actual = rad.getStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
 
     @Test
     public void shouldNextStationNumberWithinBorders() { // 10. ПЕРЕКЛЮЧЕНИЕ НА СЛЕДУЮЩУЮ СТАНЦИЮ В ГРАНИЦАХ
@@ -129,7 +100,7 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldNextStationBeforeLastBorder() { // 14. ПЕРЕКЛЮЧЕНИЕ НА СЛЕДУЮЩУЮ СТАНЦИЮ ДО ПОСЛЕДНЕЙ ГРАНИЦЫ
+    public void shouldNextStationBeforeLastBorder() { // 13. ПЕРЕКЛЮЧЕНИЕ НА СЛЕДУЮЩУЮ СТАНЦИЮ ПОСЛЕ ПЕРВОЙ ГРАНИЦЫ
         Radio rad = new Radio();
         rad.setStationNumber(8);
         rad.next();
@@ -140,7 +111,7 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldReturnFirstStationOnLastBorder() { // 15. ПЕРЕКЛЮЧЕНИЕ НА СЛЕДУЮЩУЮ СТАНЦИЮ НА ПОСЛЕДНЕЙ ГРАНИЦЕ
+    public void shouldNextStationOnLastBorder() { // 13. ПЕРЕКЛЮЧЕНИЕ НА СЛЕДУЮЩУЮ СТАНЦИЮ ПОСЛЕ ПЕРВОЙ ГРАНИЦЫ
         Radio rad = new Radio();
         rad.setStationNumber(9);
         rad.next();
@@ -149,7 +120,6 @@ public class RadioTest {
         int actual = rad.getStationNumber();
         Assertions.assertEquals(expected, actual);
     }
-
 
     @Test
     public void shouldPrevStationNumberWithinBorders() { // 17. ПЕРЕКЛЮЧЕНИЕ НА ПРЕДЫДУЩУЮ СТАНЦИЮ В ГРАНИЦАХ
@@ -187,17 +157,6 @@ public class RadioTest {
     @Test
     public void shouldPrevStationNumberBeforeLastBorder() { // 21. ПЕРЕКЛЮЧЕНИЕ НА ПРЕДЫДУЩУЮ СТАНЦИЮ ДО ПОСЛЕДНЕЙ ГРАНИЦЫ
         Radio rad = new Radio();
-        rad.setStationNumber(8);
-        rad.prev();
-
-        int expected = 7;
-        int actual = rad.getStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldPrevStationNumberOnLastBorder() { // 22. ПЕРЕКЛЮЧЕНИЕ НА ПРЕДЫДУЩУЮ СТАНЦИЮ НА ПОСЛЕДНЕЙ ГРАНИЦЕ
-        Radio rad = new Radio();
         rad.setStationNumber(9);
         rad.prev();
 
@@ -205,6 +164,7 @@ public class RadioTest {
         int actual = rad.getStationNumber();
         Assertions.assertEquals(expected, actual);
     }
+
 
     @Test
     public void shouldSetSoundVolume() { // 24. ИЗМЕНЯЕМ ГРОМКОСТЬ ЗВУКА В ГРАНИЦАХ
@@ -403,6 +363,70 @@ public class RadioTest {
 
         int expected = 99;
         int actual = rad.getSoundVolume();
+        Assertions.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void shouldGetAmountStationsWithoutParams() { // Вывод количества радиостанций по-умолчанию
+        Radio rad = new Radio();
+        Assertions.assertEquals(10, rad.getAmountStations());
+    }
+
+    @Test
+    public void shouldGetAmountStationsWithParam() { //Вывод количества радиостанций при задании количества станций больше нормы
+        Radio rad = new Radio(20);
+        Assertions.assertEquals(20, rad.getAmountStations());
+    }
+
+    @Test
+    public void shouldGetAmountStationsWithParamBeforeFirstBorder() { //Вывод количества радиостанций при задании параметра меньше 0
+        Radio rad = new Radio(-1);
+        Assertions.assertEquals(10, rad.getAmountStations());
+    }
+
+    @Test
+    public void shouldGetAmountStationsWithParamOnFirstBorder() { //Вывод количества радиостанций при задании параметра на границе
+        Radio rad = new Radio(0);
+        Assertions.assertEquals(10, rad.getAmountStations());
+    }
+
+    @Test
+    public void shouldGetAmountStationsWithParamAfterFirstBorder() { //Вывод количества радиостанций при задании параметра больше 0
+        Radio rad = new Radio(1);
+        Assertions.assertEquals(1, rad.getAmountStations());
+    }
+
+    @Test
+    public void shouldGetAmountStationsWithParamIfAmountIsBig() { //Вывод количества радиостанций при задании большого количества станций
+        Radio rad = new Radio(1_000_000);
+        Assertions.assertEquals(1_000_000, rad.getAmountStations());
+    }
+
+    @Test
+    public void shouldSetAmountStationsBeforeBorder() {
+        Radio rad = new Radio();
+        rad.setAmountStations(0);
+        int expected = 10;
+        int actual = rad.getAmountStations();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetAmountStationsOnBorder() {
+        Radio rad = new Radio();
+        rad.setAmountStations(1);
+        int expected = 1;
+        int actual = rad.getAmountStations();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetAmountStationsABig() {
+        Radio rad = new Radio();
+        rad.setAmountStations(2_000_000);
+        int expected = 2_000_000;
+        int actual = rad.getAmountStations();
         Assertions.assertEquals(expected, actual);
     }
 }

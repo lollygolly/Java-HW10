@@ -1,9 +1,26 @@
 package ru.netology.services;
 
 public class Radio {
+    // поля
+    private int amountStations = 10; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДЕТ ХРАНИТСЯ КОЛИЧЕСТВО РАДИОСТАНЦИЙ
     private int stationNumber; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДУТ ХРАНИТСЯ НОМЕРА РАДИОСТАНЦИЙ
     private int soundVolume; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДУТ ХРАНИТСЯ ЗНАЧЕНИЯ ГРОМКОСТИ ЗВУКА
 
+
+    // конструкторы
+    public Radio() {
+    }
+
+    public Radio(int amountStations) { // Конструктор для задания количества станций
+        if (amountStations > 0) {
+            this.amountStations = amountStations;
+        }
+    }
+
+    // геттеры
+    public int getAmountStations() { // Метод получения количества радиостанций
+        return amountStations;
+    }
 
     public int getStationNumber() { // Метод получения текущего номера радиостанции
         return stationNumber;
@@ -13,12 +30,19 @@ public class Radio {
         return soundVolume;
     }
 
+    // сеттеры
+    public void setAmountStations(int newAmountStations) { // Метод изменения количества радиостанций
+        if (newAmountStations <= 0) {
+            return;
+        }
+        amountStations = newAmountStations;
+    }
 
     public void setStationNumber(int newStationNumber) { //Метод изменения номера радиостанции с ограничением от 0 до 9
         if (newStationNumber < 0) {
             return;
         }
-        if (newStationNumber > 9) {
+        if (newStationNumber > amountStations - 1) {
             return;
         }
         stationNumber = newStationNumber;
@@ -34,9 +58,9 @@ public class Radio {
         soundVolume = newSoundVolume;
     }
 
-
+    // методы с номером станции
     public void next() { // Метод переключения номера радиостанции на следующий
-        if (stationNumber != 9) {
+        if (stationNumber != amountStations - 1) {
             stationNumber++;
         } else {
             stationNumber = 0;
@@ -47,11 +71,11 @@ public class Radio {
         if (stationNumber != 0) {
             stationNumber--;
         } else {
-            stationNumber = 9;
+            stationNumber = amountStations - 1;
         }
     }
 
-
+    // методы с громкостью звука
     public void increaseSoundVolumeByOne() { //Метод увеличения громкости на один
         if (soundVolume < 100) {
             soundVolume = soundVolume + 1;
