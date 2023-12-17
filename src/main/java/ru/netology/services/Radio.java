@@ -1,8 +1,25 @@
 package ru.netology.services;
 
 public class Radio {
+    private int amountStations = 10; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДЕТ ХРАНИТСЯ КОЛИЧЕСТВО РАДИОСТАНЦИЙ
     private int stationNumber; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДУТ ХРАНИТСЯ НОМЕРА РАДИОСТАНЦИЙ
+
     private int soundVolume; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДУТ ХРАНИТСЯ ЗНАЧЕНИЯ ГРОМКОСТИ ЗВУКА
+
+
+    public Radio() {
+    }
+
+    public Radio(int amountStations) { // Конструктор для задания количества станций
+        if (amountStations > 0) {
+            this.amountStations = amountStations;
+        }
+    }
+
+
+    public int getAmountStations() { // Метод получения количества радиостанций
+        return amountStations;
+    }
 
 
     public int getStationNumber() { // Метод получения текущего номера радиостанции
@@ -14,11 +31,18 @@ public class Radio {
     }
 
 
+    public void setAmountStations(int newAmountStations) { // Метод изменения количества радиостанций
+        if (newAmountStations <=0) {
+            return;
+        }
+        amountStations = newAmountStations;
+    }
+
     public void setStationNumber(int newStationNumber) { //Метод изменения номера радиостанции с ограничением от 0 до 9
         if (newStationNumber < 0) {
             return;
         }
-        if (newStationNumber > 9) {
+        if (newStationNumber > amountStations-1) {
             return;
         }
         stationNumber = newStationNumber;
@@ -36,7 +60,7 @@ public class Radio {
 
 
     public void next() { // Метод переключения номера радиостанции на следующий
-        if (stationNumber != 9) {
+        if (stationNumber != amountStations-1) {
             stationNumber++;
         } else {
             stationNumber = 0;
@@ -47,7 +71,7 @@ public class Radio {
         if (stationNumber != 0) {
             stationNumber--;
         } else {
-            stationNumber = 9;
+            stationNumber = amountStations-1;
         }
     }
 
