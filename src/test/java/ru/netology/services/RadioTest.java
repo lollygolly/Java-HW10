@@ -405,11 +405,11 @@ public class RadioTest {
 
     @Test
     public void shouldSetAmountStationsBeforeBorder() {
-    Radio rad = new Radio();
-    rad.setAmountStations(0);
-    int expected = 10;
-    int actual = rad.getAmountStations();
-    Assertions.assertEquals(expected, actual);
+        Radio rad = new Radio();
+        rad.setAmountStations(0);
+        int expected = 10;
+        int actual = rad.getAmountStations();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
