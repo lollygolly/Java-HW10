@@ -20,6 +20,35 @@ public class Radio {
         }
     }
 
+    // сеттеры с особенностями
+    public void setAmountStations(int newAmountStations) { // Метод изменения количества радиостанций
+        if (newAmountStations <= 0) {
+            return;
+        }
+        amountStations = newAmountStations;
+    }
+
+    public void setStationNumber(int newStationNumber) { //Метод изменения номера радиостанции с ограничением от 0 до 9
+        if (newStationNumber < 0) {
+            return;
+        }
+        if (newStationNumber > amountStations - 1) {
+            return;
+        }
+        stationNumber = newStationNumber;
+    }
+
+    public void setSoundVolume(int newSoundVolume) { //Метод изменения текущей громкости с ограничением от 0 до 100
+        if (newSoundVolume < 0) {
+            return;
+        }
+        if (newSoundVolume > 100) {
+            return;
+        }
+        soundVolume = newSoundVolume;
+    }
+
+
     // Методы, которые не генерируются аннотациями
     public void next() { // Метод переключения номера радиостанции на следующий
         if (stationNumber != amountStations - 1) {
