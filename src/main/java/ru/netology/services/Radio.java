@@ -14,75 +14,39 @@ public class Radio {
     private int stationNumber; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДУТ ХРАНИТСЯ НОМЕРА РАДИОСТАНЦИЙ
     private int soundVolume; // СОЗДАЕМ ПОЛЕ, В КОТОРОМ БУДУТ ХРАНИТСЯ ЗНАЧЕНИЯ ГРОМКОСТИ ЗВУКА
 
-    // то, что ламбок навалял
-
-    public Radio() {
-    }
-
-    public Radio(int amountStations, int stationNumber, int soundVolume) {
-        this.amountStations = amountStations;
-        this.stationNumber = stationNumber;
-        this.soundVolume = soundVolume;
-    }
-
-    public int getAmountStations() {
-        return this.amountStations;
-    }
-
-    public int getStationNumber() {
-        return this.stationNumber;
-    }
-
-    public int getSoundVolume() {
-        return this.soundVolume;
-    }
-
-    public void setAmountStations(int amountStations) {
-        this.amountStations = amountStations;
-    }
-
-    public void setStationNumber(int stationNumber) {
-        this.stationNumber = stationNumber;
-    }
-
-    public void setSoundVolume(int soundVolume) {
-        this.soundVolume = soundVolume;
-    }
-
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof Radio)) {
-            return false;
-        } else {
-            Radio other = (Radio)o;
-            if (!other.canEqual(this)) {
-                return false;
-            } else if (this.getAmountStations() != other.getAmountStations()) {
-                return false;
-            } else if (this.getStationNumber() != other.getStationNumber()) {
-                return false;
-            } else {
-                return this.getSoundVolume() == other.getSoundVolume();
-            }
+    public Radio(int amountStations) { // Конструктор для задания количества станций
+        if (amountStations > 0) {
+            this.amountStations = amountStations;
         }
     }
 
-    protected boolean canEqual(Object other) {
-        return other instanceof Radio;
+    // Методы, которые не генерируются аннотациями
+    public void next() { // Метод переключения номера радиостанции на следующий
+        if (stationNumber != amountStations - 1) {
+            stationNumber++;
+        } else {
+            stationNumber = 0;
+        }
     }
 
-    public int hashCode() {
-        int PRIME = true;
-        int result = 1;
-        result = result * 59 + this.getAmountStations();
-        result = result * 59 + this.getStationNumber();
-        result = result * 59 + this.getSoundVolume();
-        return result;
+    public void prev() { // Метод переключения номера радиостанции на предыдущий
+        if (stationNumber != 0) {
+            stationNumber--;
+        } else {
+            stationNumber = amountStations - 1;
+        }
     }
 
-    public String toString() {
-        int var10000 = this.getAmountStations();
-        return "Radio(amountStations=" + var10000 + ", stationNumber=" + this.getStationNumber() + ", soundVolume=" + this.getSoundVolume() + ")";
+    // методы с громкостью звука
+    public void increaseSoundVolumeByOne() { //Метод увеличения громкости на один
+        if (soundVolume < 100) {
+            soundVolume = soundVolume + 1;
+        }
+    }
+
+    public void decreaseSoundVolumeByOne() { //Метод уменьшения громкости на один
+        if (soundVolume > 0) {
+            soundVolume = soundVolume - 1;
+        }
     }
 }
